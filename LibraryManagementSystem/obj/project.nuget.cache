@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fCARI7OIl7/2dHkmyGmKaPf2duC+/SJybAxtXYOKQN7nh6NHfBKmPBoRpr34SUWr9nr5MfTZL1L6pXnFtaabTw==",
+  "dgSpecHash": "THoiWQjyXTmxkKGBjevcwRN7L5oOTAA+VTAs+SNjasFzmUi5XIcKSsKQTBdcyfOgB4+Vos4UslYuLQ9XUeoing==",
   "success": true,
-  "projectFilePath": "D:\\ITI\\MVC\\LibraryManagementSystem\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
+  "projectFilePath": "C:\\Users\\LEGION\\Documents\\GitHub\\Library-Management-System\\LibraryManagementSystem\\LibraryManagementSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LEGION\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\LEGION\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
