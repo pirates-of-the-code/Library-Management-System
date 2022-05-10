@@ -20,10 +20,12 @@ namespace LibraryManagementSystem.Data
         public virtual DbSet<Book> Books { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<OrderTable> OrderTables { get; set; }
-
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            
             modelBuilder.Entity<Author>(entity =>
             {
                 entity.HasKey(e => e.Author_Id)
@@ -69,7 +71,7 @@ namespace LibraryManagementSystem.Data
                             j.ToTable("Book_Category");
                         });
             });
-
+            
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.HasKey(e => e.Category_Id)

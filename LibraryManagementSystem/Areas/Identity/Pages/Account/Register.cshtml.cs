@@ -113,10 +113,12 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
+                // var user = CreateUser();
 
-                await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+                var user = new ApplicationUser();
+
+              await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+             //   await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
 
                 if (result.Succeeded)
