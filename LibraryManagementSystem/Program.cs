@@ -10,9 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LibrarymanagementsystemContext>(options =>
     options.UseSqlServer(connectionString));
+    
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LibrarymanagementsystemContext>();
 builder.Services.AddControllersWithViews();
 

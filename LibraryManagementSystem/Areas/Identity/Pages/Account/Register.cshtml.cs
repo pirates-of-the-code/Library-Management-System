@@ -115,10 +115,11 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
             {
                 // var user = CreateUser();
 
-                var user = new ApplicationUser();
+                var user = new ApplicationUser() { UserName = Input.Email};
 
-              await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
-             //   await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+                //await _userStore.SetUserNameAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
+
+                //   await _emailStore.SetEmailAsync((ApplicationUser)user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync((ApplicationUser)user, Input.Password);
 
                 if (result.Succeeded)
@@ -126,6 +127,7 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync((ApplicationUser)user);
+                    await _userManager.AddToRoleAsync(user, "Customer");
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync((ApplicationUser)user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
