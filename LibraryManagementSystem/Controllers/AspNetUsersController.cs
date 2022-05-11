@@ -8,23 +8,46 @@ using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Authorization;
+//using LibraryManagementSystem.Areas.Identity.Pages.Account;
 
 namespace LibraryManagementSystem.Controllers
 {
+    
+    [Authorize(Roles="Admin")]
     public class AspNetUsersController : Controller
     {
-        private readonly UserManager<ApplicationUser> _context;
 
-        public AspNetUsersController(UserManager<ApplicationUser> context)
+        //Admin@Admin
+        //P@$$w0rd
+
+
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
+    //    private readonly ILogger<RegisterModel> _logger;
+    //    private readonly IEmailSender _emailSender;
+
+        public AspNetUsersController(
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
+            SignInManager<ApplicationUser> signInManager)
+    //        ILogger<RegisterModel> logger,
+      //      IEmailSender emailSender)
         {
-            _context = context;
+            _userManager = userManager;
+            _userStore = userStore;
+            //_emailStore = (IUserEmailStore<ApplicationUser>)GetEmailStore();
+            _signInManager = signInManager;
+        //    _logger = logger;
+          //  _emailSender = emailSender;
         }
 
         // get: aspnetusers
         public IActionResult index()
         {
-            return View(_context.Users.ToList()); ;
+            return View(_userManager.Users.ToList()); ;
         }
         //to do list
 
@@ -36,7 +59,7 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var aspNetUser = await _context.FindByIdAsync(id);
+            var aspNetUser = await _userManager.FindByIdAsync(id);
             
             if (aspNetUser == null)
             {
@@ -63,13 +86,13 @@ namespace LibraryManagementSystem.Controllers
             {
              //   _context.Add(aspNetUser);
            
-                var result = await _context.CreateAsync(appUser, appUser.PasswordHash);
+                var result = await _userManager.CreateAsync(appUser, appUser.PasswordHash);
 
 
                 if (result.Succeeded)
                 {
 
-                    await _context.AddToRoleAsync(appUser, "Employee");
+                    await _userManager.AddToRoleAsync(appUser, "Employee");
 
                     return RedirectToAction(nameof(Index));
 
@@ -87,7 +110,7 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var appUser = await _context.FindByIdAsync(id);
+            var appUser = await _userManager.FindByIdAsync(id);
             if (appUser == null)
             {
                 return NotFound();
@@ -111,8 +134,8 @@ namespace LibraryManagementSystem.Controllers
             {
                 try
                 {
-                var _appUser=  await  _context.FindByIdAsync(appUser.Id);
-                    await _context.UpdateAsync(_appUser);
+                var _appUser=  await  _userManager.FindByIdAsync(appUser.Id);
+                    await _userManager.UpdateAsync(_appUser);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -138,7 +161,7 @@ namespace LibraryManagementSystem.Controllers
                 return NotFound();
             }
 
-            var applicationUser = await _context.FindByIdAsync(id);
+            var applicationUser = await _userManager.FindByIdAsync(id);
             if (applicationUser == null)
             {
                 return NotFound();
@@ -152,15 +175,15 @@ namespace LibraryManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var _applicationUser = await _context.FindByIdAsync(id);
-            await  _context.DeleteAsync(_applicationUser);
+            var _applicationUser = await _userManager.FindByIdAsync(id);
+            await  _userManager.DeleteAsync(_applicationUser);
           
             return RedirectToAction(nameof(Index));
         }
 
         private async Task <bool> AspNetUserExists(string id)
         {
-            return await _context.FindByIdAsync(id)!=null;
+            return await _userManager.FindByIdAsync(id)!=null;
         }
     }
 }
