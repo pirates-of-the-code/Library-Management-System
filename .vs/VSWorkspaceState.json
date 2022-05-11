@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\LibraryManagementSystem",
+    "\\LibraryManagementSystem\\Areas",
+    "\\LibraryManagementSystem\\Areas\\Identity",
+    "\\LibraryManagementSystem\\Areas\\Identity\\Pages",
+    "\\LibraryManagementSystem\\Areas\\Identity\\Pages\\Account"
   ],
-  "SelectedNode": "\\C:\\Users\\LENOVO\\Source\\Repos\\Library-Management-System",
+  "SelectedNode": "\\LibraryManagementSystem\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
   "PreviewInSolutionExplorer": false
 }
