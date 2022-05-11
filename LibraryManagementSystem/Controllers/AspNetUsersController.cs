@@ -80,7 +80,7 @@ namespace LibraryManagementSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserName,Email,PasswordHash,PhoneNumber")] ApplicationUser appUser)
+        public async Task<IActionResult> Create([Bind("Email,UserName,PasswordHash,PhoneNumber")] ApplicationUser appUser)
         {
             if (ModelState.IsValid)
             {
