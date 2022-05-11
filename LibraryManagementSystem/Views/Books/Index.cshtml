@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LibraryManagementSystem.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.image)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.License_Quantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.License_Quantity)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ISBN">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ISBN">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ISBN">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
