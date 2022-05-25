@@ -12,9 +12,9 @@ namespace LibraryManagementSystem.Models
             ISBNs = new HashSet<Book>();
         }
 
-        public int name { get; set; }
+        public string name { get; set; }
         public int Author_Id { get; set; }
-        public int bio { get; set; }
+        public string bio { get; set; }
 
         public virtual ICollection<Book> ISBNs { get; set; }
     }

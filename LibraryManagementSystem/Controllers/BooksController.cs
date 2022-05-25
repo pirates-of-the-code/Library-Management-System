@@ -37,6 +37,26 @@ namespace LibraryManagementSystem.Controllers
         }
 
 
+        public IActionResult UserBooksPage()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return LocalRedirect("/Books/AdminBooks");
+
+            }
+            else if(User.IsInRole("Employee"))
+            {
+                return LocalRedirect("/Books/AdminBooks");
+
+            }
+            else
+            {
+                return LocalRedirect("/Books/Index");
+
+            }
+        }
+
+
         [Authorize(Roles = "Admin, Employee, Customer")]
 
         // GET: Books/Details/5

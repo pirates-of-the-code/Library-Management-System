@@ -13,7 +13,7 @@ namespace LibraryManagementSystem.Models
         }
 
         public int Order_Id { get; set; }
-        public int date { get; set; }
+        public string date { get; set; }
         public int status { get; set; }
         public string SSN { get; set; }
 

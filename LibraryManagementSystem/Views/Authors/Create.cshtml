@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Add a New Author</h1>
 
 <h4>Author</h4>
 <hr />
@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="name" class="control-label"></label>
-                <input asp-for="name" class="form-control" />
+                <input asp-for="name" class="form-control" type="text" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="bio" class="control-label"></label>
-                <input asp-for="bio" class="form-control" />
+                <input asp-for="bio" class="form-control" type="text"/>
                 <span asp-validation-for="bio" class="text-danger"></span>
             </div>
             <div class="form-group">

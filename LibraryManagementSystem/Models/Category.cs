@@ -13,7 +13,7 @@ namespace LibraryManagementSystem.Models
         }
 
         public int Category_Id { get; set; }
-        public int name { get; set; }
+        public string name { get; set; }
 
         public virtual ICollection<Book> ISBNs { get; set; }
     }
