@@ -14,10 +14,10 @@ namespace LibraryManagementSystem.Models
             Orders = new HashSet<OrderTable>();
         }
 
-        public int title { get; set; }
+        public string title { get; set; }
         public int ISBN { get; set; }
         public int Price { get; set; }
-        public int image { get; set; }
+        public string image { get; set; }
         public int License_Quantity { get; set; }
 
         public virtual ICollection<Author> Authors { get; set; }

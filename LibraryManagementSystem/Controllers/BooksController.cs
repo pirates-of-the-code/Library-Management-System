@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -16,10 +17,12 @@ namespace LibraryManagementSystem.Controllers
     public class BooksController : Controller
     {
         private readonly LibrarymanagementsystemContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public BooksController(LibrarymanagementsystemContext context)
+        public BooksController(LibrarymanagementsystemContext context )
         {
             _context = context;
+           
         }
 
 
@@ -59,6 +62,11 @@ namespace LibraryManagementSystem.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "Admin, Employee")]
+        public IActionResult AdminBooks()
+        {
+            return View(_context.Books.ToList());
+        }
 
         // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -73,7 +81,7 @@ namespace LibraryManagementSystem.Controllers
             {
                 _context.Add(book);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AdminBooks));
             }
             return View(book);
         }
@@ -127,7 +135,7 @@ namespace LibraryManagementSystem.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(AdminBooks));
             }
             return View(book);
         }
@@ -169,9 +177,8 @@ namespace LibraryManagementSystem.Controllers
             {
                 _context.Books.Remove(book);
             }
-            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(AdminBooks));
         }
 
         private bool BookExists(int id)

@@ -1,0 +1,42 @@
+﻿
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LibraryManagementSystem</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LibraryManagementSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <h1><u>Admin Options</u></h1>
+
+    <a asp-controller="Books" asp-action="AdminBooks"  class="btn btn-primary">Books</a>
+    <a asp-controller="Authors" asp-action="index"  class="btn btn-primary">Authors</a>
+    <a asp-controller="Categories" asp-action="index"  class="btn btn-primary">Categories</a>
+    <a asp-controller="OrderTables" asp-action="index"  class="btn btn-primary">OrderTable</a>
+     
+ 
+   
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
+

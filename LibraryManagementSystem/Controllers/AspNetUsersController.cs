@@ -47,9 +47,21 @@ namespace LibraryManagementSystem.Controllers
         // get: aspnetusers
         public IActionResult index()
         {
-            return View(_userManager.Users.ToList()); ;
+            return View(_userManager.Users.ToList()); 
         }
         //to do list
+        public IActionResult AdminHomePage()
+        {
+            return View(); 
+        }
+        public IActionResult EmployeeHomePage()
+        {
+            return View();
+        }
+        public IActionResult CustomerHomePage()
+        {
+            return View();
+        }
 
         // GET: AspNetUsers/Details/5
         public async Task<IActionResult> Details(string id)
@@ -134,7 +146,10 @@ namespace LibraryManagementSystem.Controllers
             {
                 try
                 {
-                var _appUser=  await  _userManager.FindByIdAsync(appUser.Id);
+                   var _appUser=  await  _userManager.FindByIdAsync(appUser.Id);
+                    _appUser.UserName = appUser.UserName;
+                    _appUser.Email = appUser.Email;
+                    _appUser.PhoneNumber = appUser.PhoneNumber;
                     await _userManager.UpdateAsync(_appUser);
                 }
                 catch (DbUpdateConcurrencyException)

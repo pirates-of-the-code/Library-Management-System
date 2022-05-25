@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using LibraryManagementSystem.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 
 namespace LibraryManagementSystem.Areas.Identity.Pages.Account
 {
@@ -22,11 +25,15 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
-            _signInManager = signInManager;
-            _logger = logger;
+            _userManager = userManager;
+           
+             _signInManager = signInManager;
+             _logger = logger;
         }
 
         /// <summary>
@@ -116,7 +123,20 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 //var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
-                {
+                {  
+                    bool res =true;
+                    var roles = await _userManager.GetRolesAsync(user);
+                   
+                    if (roles.Contains("Admin"))
+                    {
+                        _logger.LogInformation("Hiii from Admin");
+                        return LocalRedirect("/aspnetusers/AdminHomePage");
+                    }else if (roles.Contains("Employee"))
+                    {
+                        return LocalRedirect("/aspnetusers/AdminHomePage");
+
+                    }
+                   // ApplicationUser user = await UserManager.FindAsync(user.Email, user.PasswordHash);
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
