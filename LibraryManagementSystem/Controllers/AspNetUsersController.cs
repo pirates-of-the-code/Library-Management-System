@@ -58,6 +58,19 @@ namespace LibraryManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult UserHomePage()
+        {
+            if(User.IsInRole("Admin"))
+            {
+                return LocalRedirect("/aspnetusers/AdminHomePage");
+
+            }
+            else
+            {
+                return LocalRedirect("/aspnetusers/EmployeeHomePage");
+
+            }
+        }
 
         // GET: AspNetUsers/Details/5
         public async Task<IActionResult> Details(string id)
