@@ -133,8 +133,12 @@ namespace LibraryManagementSystem.Areas.Identity.Pages.Account
                         return LocalRedirect("/aspnetusers/AdminHomePage");
                     }else if (roles.Contains("Employee"))
                     {
-                        return LocalRedirect("/aspnetusers/AdminHomePage");
+                        return LocalRedirect("/aspnetusers/EmployeeHomePage");
 
+                    }
+                    else
+                    {
+                        return LocalRedirect("/Books/Index");
                     }
                    // ApplicationUser user = await UserManager.FindAsync(user.Email, user.PasswordHash);
                     _logger.LogInformation("User logged in.");

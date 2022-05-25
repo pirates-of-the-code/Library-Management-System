@@ -35,6 +35,8 @@ namespace LibraryManagementSystem.Controllers
         {
               return View(await _context.Books.ToListAsync());
         }
+
+
         [Authorize(Roles = "Admin, Employee, Customer")]
 
         // GET: Books/Details/5

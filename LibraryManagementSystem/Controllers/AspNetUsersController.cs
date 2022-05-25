@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LibraryManagementSystem.Controllers
 {
     
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles="Admin,Employee")]
     public class AspNetUsersController : Controller
     {
 
@@ -55,10 +55,6 @@ namespace LibraryManagementSystem.Controllers
             return View(); 
         }
         public IActionResult EmployeeHomePage()
-        {
-            return View();
-        }
-        public IActionResult CustomerHomePage()
         {
             return View();
         }
