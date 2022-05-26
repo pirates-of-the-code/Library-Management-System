@@ -9,6 +9,8 @@ using LibraryManagementSystem.Data;
 using LibraryManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using LibraryManagementSystem.Areas.Identity.Pages.Account;
+using Microsoft.AspNet.Identity;
 
 namespace LibraryManagementSystem.Controllers
 {
@@ -17,12 +19,12 @@ namespace LibraryManagementSystem.Controllers
     public class BooksController : Controller
     {
         private readonly LibrarymanagementsystemContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<RegisterModel> _logger;
 
-        public BooksController(LibrarymanagementsystemContext context )
+        public BooksController(LibrarymanagementsystemContext context, ILogger<RegisterModel> logger )
         {
             _context = context;
-           
+            _logger = logger;
         }
 
 
@@ -52,7 +54,6 @@ namespace LibraryManagementSystem.Controllers
             else
             {
                 return LocalRedirect("/Books/Index");
-
             }
         }
 
@@ -201,6 +202,26 @@ namespace LibraryManagementSystem.Controllers
             }
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(AdminBooks));
+        }
+        public async Task<IActionResult> Orders(String ISBNs)
+        {
+            OrderTable orderTable = new OrderTable();
+            orderTable.date = DateTime.Now.ToString();
+            orderTable.status = 0;
+            orderTable.SSN= User.Identity.GetUserId();
+            List<int> isbns= new List<int>();
+            ISBNs.Split(',').ToList().ForEach(a=> { if (a.Length > 0) isbns.Add(int.Parse(a)); });
+            var books = new List<Book>();
+
+            foreach (var isb in isbns)
+            {
+                books.Add(await _context.Books.FindAsync(isb));
+            }
+
+            orderTable.ISBNs = books;
+            _context.OrderTables.Add(orderTable);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool BookExists(int id)

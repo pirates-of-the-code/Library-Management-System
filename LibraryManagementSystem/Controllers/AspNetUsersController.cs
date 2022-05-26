@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace LibraryManagementSystem.Controllers
 {
     
-    [Authorize(Roles="Admin,Employee")]
+    [Authorize(Roles="Admin,Employee,Customer")]
     public class AspNetUsersController : Controller
     {
 
@@ -58,6 +58,10 @@ namespace LibraryManagementSystem.Controllers
         {
             return View();
         }
+        public IActionResult CustomerHomePage()
+        {
+            return View();
+        }
         public IActionResult UserHomePage()
         {
             if(User.IsInRole("Admin"))
@@ -65,10 +69,13 @@ namespace LibraryManagementSystem.Controllers
                 return LocalRedirect("/aspnetusers/AdminHomePage");
 
             }
-            else
+            else if(User.IsInRole("Employee"))
             {
                 return LocalRedirect("/aspnetusers/EmployeeHomePage");
-
+            }
+            else
+            {
+                return RedirectToAction(controllerName:"Books",actionName:"Index");
             }
         }
 

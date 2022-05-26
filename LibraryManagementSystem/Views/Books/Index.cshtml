@@ -6,9 +6,12 @@
 
 <h1>Our Books</h1>
 
-<p>
+@*<p>
     <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+</p>*@
+<script>
+    localStorage.setItem('cart', []);
+</script>
 <table class="table">
     <thead>
         <tr>
@@ -43,9 +46,14 @@
                 @Html.DisplayFor(modelItem => item.License_Quantity)
             </td>
             <td>             
-                <a asp-action="Details" asp-route-id="@item.ISBN">Details</a>       
+                @*<a asp-action="AddToCart" asp-route-id="@item.ISBN">Add To Cart</a>*@
+                <button onclick="localStorage.setItem('cart', [ localStorage.getItem('cart'), @item.ISBN]);" class="btn btn-secondary" > add to cart </button>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<form  asp-action="Orders" method="post" >
+    <input name="ISBNs" value="" hidden/>
+    <button type="submit" onclick="    document.getElementsByName('ISBNs')[0].value = localStorage.getItem('cart'); console.log(document.getElementsByName('ISBNs')[0].value); " class="btn btn-primary" > buy </button>
+</form>
